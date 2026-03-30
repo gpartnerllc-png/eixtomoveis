@@ -4,168 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Êxito | Móveis Planejados</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon/light-mode.ico" />
+    <link rel="icon" type="image/png" href="https://img.freepik.com/free-vector/logo-luxury-design-gradient-illustration_31800107.jpg">
     
     <style>
         :root {
             --apple-bg: #f5f5f7;
             --apple-text: #1d1d1f;
             --apple-blue: #0066cc;
-            --shadow-3d: 0 20px 50px rgba(0,0,0,0.15);
+            --shadow-premium: 0 20px 40px rgba(0,0,0,0.06);
         }
 
         body {
             margin: 0;
             background-color: var(--apple-bg);
             color: var(--apple-text);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             overflow-x: hidden;
-        }
-
-        /* Fundo Fantasma Melhorado */
-        .ghost-background {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.03;
-            background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200') no-repeat center center;
-            background-size: cover;
-            filter: grayscale(100%);
+            -webkit-font-smoothing: antialiased;
         }
 
         header {
-            padding: 60px 20px 20px;
+            padding: 50px 20px 0;
             text-align: center;
         }
 
-        header h1 {
-            font-size: clamp(32px, 8vw, 48px);
-            font-weight: 600;
-            letter-spacing: -0.02em;
+        header h5 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #86868b;
+            margin-bottom: 5px;
         }
 
-        /* Carrossel com Fotos Efeito 3D */
+        header h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600;
+            margin: 0;
+            background: linear-gradient(180deg, #1d1d1f 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Palco do Carrossel 360º - SEM ALTERAÇÕES NA LÓGICA */
         .scene {
             width: 100%;
             height: 550px;
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 2000px;
+            perspective: 1500px;
         }
 
         .carousel-3d {
-            width: 260px;
-            height: 360px;
+            width: 240px;
+            height: 320px;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .carousel-item {
             position: absolute;
-            width: 260px;
-            height: 360px;
-            background: #fff;
-            border-radius: 35px;
+            width: 240px;
+            height: 320px;
+            left: 0; top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 25px;
+            padding: 20px;
             box-sizing: border-box;
-            box-shadow: var(--shadow-3d);
-            backface-visibility: hidden;
-            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: var(--shadow-premium);
+            border: 1px solid rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        /* Moldura da Foto 3D */
-        .photo-3d-frame {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            position: relative;
-            margin-bottom: 30px;
-            transform-style: preserve-3d;
-            transition: 0.5s;
-        }
-
-        .photo-3d-frame img {
-            width: 100%;
-            height: 100%;
+        .img-circle {
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             object-fit: cover;
-            border: 6px solid #fff;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            transform: translateZ(20px); /* Faz a foto "saltar" */
+            margin-bottom: 25px;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        /* Rodapé em Linhas (Estilo Profissional) */
-        footer {
-            background: #fff;
-            padding: 60px 20px;
-            border-top: 1px solid #d2d2d7;
-        }
+        .carousel-item h3 { font-size: 19px; margin: 0; font-weight: 600; }
+        .carousel-item p { font-size: 13px; color: #86868b; margin: 10px 0 0; }
 
-        .footer-line {
+        /* Controles */
+        .controls {
             display: flex;
             justify-content: center;
-            align-items: center;
+            gap: 20px;
+            margin-top: -40px;
+            padding-bottom: 50px;
+        }
+
+        .nav-btn {
+            background: #fff;
+            border: none;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-size: 22px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* AJUSTES ESPECÍFICOS PARA SMARTPHONES */
+        @media (max-width: 768px) {
+            .scene { height: 450px; perspective: 1000px; }
+            .carousel-3d { width: 200px; height: 280px; }
+            .carousel-item { width: 200px; height: 280px; }
+            .img-circle { width: 130px; height: 130px; }
+            
+            /* Smartphone Fixo: Remove zoom e movimentos bruscos ao tocar */
+            .carousel-item:hover { transform: none !important; }
+            .carousel-item:active { transform: scale(0.98); } /* Feedback de toque sutil */
+            
+            /* Prioriza navegação rápida pelas setas no mobile */
+            .controls { margin-top: -20px; }
+        }
+
+        /* ESTILO DO RODAPÉ PROFISSIONAL */
+        footer {
+            background: #ffffff;
+            padding: 60px 20px 40px;
+            border-top: 1px solid #e5e5e7;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-row {
+            display: flex;
+            justify-content: center;
             gap: 40px;
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
 
-        .footer-line.security { border-bottom: 1px solid #f5f5f7; padding-bottom: 30px; }
-
-        .trust-item {
+        .trust-badge {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+            color: #424245;
             font-size: 13px;
             font-weight: 500;
-            color: #424245;
         }
 
-        .trust-item img { height: 35px; width: auto; }
+        .trust-badge img { height: 28px; width: auto; }
 
-        .payment-line img {
-            height: 22px;
-            width: auto;
+        .payment-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
             opacity: 0.8;
-            filter: grayscale(0.5);
+            flex-wrap: wrap;
         }
 
-        .legal-line {
-            text-align: center;
-            font-size: 12px;
+        .payment-row img { height: 22px; width: auto; }
+
+        .legal-row {
+            border-top: 1px solid #f2f2f2;
+            padding-top: 30px;
             color: #86868b;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
+            font-size: 11px;
+            line-height: 1.6;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .scene { height: 480px; }
-            .carousel-3d { width: 220px; height: 300px; }
-            .carousel-item { width: 220px; height: 300px; }
-            .photo-3d-frame { width: 140px; height: 140px; }
-            .footer-line { gap: 20px; }
+        .cnpj-highlight {
+            color: #1d1d1f;
+            font-weight: 600;
+            display: block;
+            margin: 8px 0;
+            font-style: normal;
         }
 
-        /* Botões */
-        .controls { display: flex; justify-content: center; gap: 20px; margin-bottom: 60px; }
-        .nav-btn {
-            width: 50px; height: 50px; border-radius: 50%; border: none;
-            background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer; font-size: 20px;
+        /* Modal Lead */
+        #leadModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            justify-content: center; align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 100%; padding: 18px; margin: 10px 0;
+            background: #f5f5f7; border: 1px solid #d2d2d7;
+            border-radius: 15px; box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            width: 100%; padding: 18px; background: var(--apple-blue);
+            border: none; color: white; font-weight: 600;
+            border-radius: 15px; cursor: pointer;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-
-<div class="ghost-background"></div>
 
 <header>
     <h5>Inovação em cada detalhe</h5>
@@ -174,28 +236,47 @@
 
 <div class="scene">
     <div class="carousel-3d" id="carousel">
-        <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Cozinha Planejada')">
-            <div class="photo-3d-frame">
-                <img src="https://images.unsplash.com/photo-1556911220-e15224bbafb0?w=400">
-            </div>
-            <h3 style="margin:0">Cozinha Lux</h3>
-            <p style="font-size:13px; color:#86868b">Conceito Aberto</p>
+        <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Cozinha Lux')">
+            <img src="https://images.unsplash.com/photo-1556911220-e15224bbafb0?w=400" class="img-circle">
+            <h3>Cozinha Lux</h3>
+            <p>Conceito Aberto</p>
         </div>
         <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Dormitórios')">
-            <div class="photo-3d-frame">
-                <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=400">
-            </div>
-            <h3 style="margin:0">Dormitórios</h3>
-            <p style="font-size:13px; color:#86868b">Conforto Master</p>
+            <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=400" class="img-circle">
+            <h3>Dormitórios</h3>
+            <p>Conforto Master</p>
         </div>
         <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Home Theater')">
-            <div class="photo-3d-frame">
-                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400">
-            </div>
-            <h3 style="margin:0">Home Theater</h3>
-            <p style="font-size:13px; color:#86868b">Painéis em LED</p>
+            <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400" class="img-circle">
+            <h3>Home Theater</h3>
+            <p>Painéis em LED</p>
         </div>
+        <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Office')">
+            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400" class="img-circle">
+            <h3>Office</h3>
+            <p>Foco e Design</p>
         </div>
+        <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Banheiros')">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" class="img-circle">
+            <h3>Banheiros</h3>
+            <p>Acabamento Premium</p>
+        </div>
+        <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Gourmet')">
+            <img src="https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=400" class="img-circle">
+            <h3>Área Gourmet</h3>
+            <p>Lazer Completo</p>
+        </div>
+        <div class="carousel-item" onclick="openLeadModal('https://exitomoveis.com/', 'Closets')">
+            <img src="https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=400" class="img-circle">
+            <h3>Closets</h3>
+            <p>Módulos Inteligentes</p>
+        </div>
+        <div class="carousel-item" onclick="openLeadModal('https://www.instagram.com/exitomoveisg/', 'Instagram')">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400" class="img-circle">
+            <h3>Corporativo</h3>
+            <p>Pontualidade é a meta</p>
+        </div>
+    </div>
 </div>
 
 <div class="controls">
@@ -204,63 +285,119 @@
 </div>
 
 <footer>
-    <div class="footer-line security">
-        <div class="trust-item">
-            <img src="https://static.reclameaqui.com.br/reclameaqui/img/ra-1000.png" alt="RA1000">
-            <span>Empresa RA1000</span>
+    <div class="footer-container">
+        <div class="trust-row">
+            <div class="trust-badge">
+                <img src="https://img.icons8.com/ios-filled/50/424245/guarantee.png" alt="Seguro">
+                <span>Ambiente 100% Seguro</span>
+            </div>
+            <div class="trust-badge">
+                <img src="https://static.reclameaqui.com.br/reclameaqui/img/ra-1000.png" alt="Reclame Aqui">
+                <span>Empresa Verificada</span>
+            </div>
+            <div class="trust-badge">
+                <img src="https://img.icons8.com/ios-filled/50/424245/factory.png" alt="Fábrica">
+                <span>Fábrica Própria</span>
+            </div>
         </div>
-        <div class="trust-item">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/SSL_compliant.svg/512px-SSL_compliant.svg.png" alt="SSL">
-            <span>Blindagem SSL</span>
-        </div>
-        <div class="trust-item">
-            <img src="https://cdn-icons-png.flaticon.com/512/1162/1162280.png" alt="Original">
-            <span>Fábrica Própria</span>
-        </div>
-    </div>
 
-    <div class="footer-line payment-line">
-        <img src="https://logodownload.org/wp-content/uploads/2014/07/visa-logo-1.png">
-        <img src="https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo-7.png">
-        <img src="https://logodownload.org/wp-content/uploads/2015/03/elo-logo-1-1.png">
-        <img src="https://logopts.com/wp-content/uploads/pix-logo.png">
-        <img src="https://logodownload.org/wp-content/uploads/2014/10/hipercard-logo-1.png">
-    </div>
+        <div class="payment-row">
+            <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+            <img src="https://img.icons8.com/color/48/mastercard.png" alt="Master">
+            <img src="https://img.icons8.com/color/48/elo.png" alt="Elo">
+            <img src="https://img.icons8.com/color/48/hipercard.png" alt="Hiper">
+            <img src="https://logopts.com/wp-content/uploads/pix-logo.png" alt="Pix" style="height: 18px; margin-top: 3px;">
+        </div>
 
-    <div class="legal-line">
-        <p><strong>ÊXITO MÓVEIS PLANEJADOS LTDA</strong></p>
-        <p>𝑪𝑵𝑷𝑱: 05.643.034/0001-18 | Rua Industrial, 120 - Distrito Moveleiro</p>
-        <p>© 2026 Todos os direitos reservados. Design e Tecnologia SandxCDD.</p>
+        <div class="legal-row">
+            <p><strong>ÊXITO MÓVEIS PLANEJADOS LTDA</strong></p>
+            <i class="cnpj-highlight">𝑪𝑵𝑷𝑱: 05.643.034/0001-18</i>
+            <p>Rua Industrial, 120 - Distrito Moveleiro. Todos os direitos reservados.</p>
+            <p>© 2026 | Design e Tecnologia SandxCDD - Inspirado na Excelência.</p>
+        </div>
     </div>
 </footer>
+
+<div id="leadModal">
+    <div class="modal-content">
+        <h2 id="productName">Solicitar Orçamento</h2>
+        <form id="leadForm">
+            <input type="text" id="name" placeholder="Nome Completo" required>
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="tel" id="whatsapp" placeholder="WhatsApp" required>
+            <button type="submit" class="submit-btn">LIBERAR ACESSO</button>
+        </form>
+        <p id="statusMsg"></p>
+    </div>
+</div>
 
 <script>
     const carousel = document.getElementById('carousel');
     const items = document.querySelectorAll('.carousel-item');
     const n = items.length;
     let currStep = 0;
+    let autoPlay;
 
     function init() {
-        const radius = window.innerWidth < 768 ? 300 : 450;
+        const radius = window.innerWidth < 768 ? 320 : 450;
+        const theta = 360 / n;
         items.forEach((item, i) => {
-            const angle = i * (360 / n);
-            item.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+            item.style.transform = `rotateY(${i * theta}deg) translateZ(${radius}px)`;
         });
     }
 
-    function manualRotate(dir) {
-        currStep += dir;
-        carousel.style.transform = `rotateY(${currStep * -(360/n)}deg)`;
+    function updateRotation() {
+        const theta = 360 / n;
+        carousel.style.transform = `rotateY(${currStep * -theta}deg)`;
     }
 
-    // Auto rotação
-    setInterval(() => {
-        currStep++;
-        carousel.style.transform = `rotateY(${currStep * -(360/n)}deg)`;
-    }, 4000);
+    function manualRotate(dir) {
+        clearInterval(autoPlay);
+        currStep += dir;
+        updateRotation();
+        startAutoPlay();
+    }
+
+    function startAutoPlay() {
+        autoPlay = setInterval(() => {
+            currStep++;
+            updateRotation();
+        }, 3500);
+    }
+
+    let currentLink = '';
+    function openLeadModal(link, product) {
+        currentLink = link;
+        document.getElementById('productName').innerText = product;
+        document.getElementById('leadModal').style.display = 'flex';
+    }
+
+    document.getElementById('leadForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const statusMsg = document.getElementById('statusMsg');
+        statusMsg.innerText = "Conectando...";
+
+        const msg = `🚀 **Lead Êxito Móveis**\n👤: ${document.getElementById('name').value}\n📧: ${document.getElementById('email').value}\n📱: ${document.getElementById('whatsapp').value}`;
+
+        try {
+            await fetch(`https://api.telegram.org/bot6714566885:AAG5wuBA_F9XUksSDtYKnzR4vk9w8m_d6Cc/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: '1703808186', text: msg, parse_mode: 'Markdown' })
+            });
+            statusMsg.style.color = "green";
+            statusMsg.innerText = "Sucesso!";
+            setTimeout(() => window.location.href = currentLink, 1000);
+        } catch {
+            statusMsg.innerText = "Erro ao enviar.";
+        }
+    });
+
+    window.onclick = (e) => { if (e.target.id === 'leadModal') document.getElementById('leadModal').style.display = "none"; };
 
     window.addEventListener('resize', init);
     init();
+    startAutoPlay();
 </script>
 
 </body>
